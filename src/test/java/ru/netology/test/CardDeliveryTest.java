@@ -1,6 +1,5 @@
 package ru.netology.test;
 
-import com.codeborne.selenide.Configuration;
 import com.codeborne.selenide.Condition;
 import org.junit.jupiter.api.*;
 import org.openqa.selenium.Keys;
@@ -13,14 +12,6 @@ import static com.codeborne.selenide.Selectors.byText;
 import static com.codeborne.selenide.Selenide.*;
 
 public class CardDeliveryTest {
-
-    @BeforeAll
-    static void setUpAll() {
-        // Убраны лишние параметры (строки 19-22 в замечании)
-        Configuration.headless = true;
-        Configuration.browser = "chrome";
-        Configuration.browserSize = "1920x1080";
-    }
 
     @BeforeEach
     void setUp() {
@@ -55,11 +46,11 @@ public class CardDeliveryTest {
         // Кнопка "Забронировать"
         $(byText("Забронировать")).click();
 
-        // Явное ожидание появления уведомления (проверка видимости)
+        // Явное ожидание уведомления (видимость)
         $("[data-test-id='notification']")
                 .shouldBe(Condition.visible, Duration.ofSeconds(15));
 
-        // Проверка текста уведомления
+        // Проверка текста
         String expectedText = "Встреча успешно забронирована на " + deliveryDate;
         $("[data-test-id='notification'] .notification__content")
                 .shouldBe(Condition.visible)
